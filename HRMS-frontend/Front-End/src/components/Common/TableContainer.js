@@ -149,9 +149,9 @@ const TableContainer = ({
   }
 
   let handleselecteddatechange = (d) => {
-    console.log(format(d, 'yyyy-MM-dd'));
-    console.log('jooooooo',d);
-    setselecteddate(d)
+    // console.log(format(d, 'yyyy-MM-dd'));
+    console.log('jooooooo',d.target.value);
+    setselecteddate(d.target.value)
   }
 
   let [selectall, setselectedall] = useState(false)
@@ -177,8 +177,8 @@ const TableContainer = ({
   }
 
   let handelSubmit = async () => {
-    console.log("-0-0-0", attendance);
-    axios.post("http://localhost:3001/attendance", { data: attendance, date: format(selecteddate, 'yyyy-MM-dd') }, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
+    console.log("-0-0-0", selecteddate);
+    axios.post("http://localhost:3001/attendance", { data: attendance, date: selecteddate }, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
       .then((res) => {
         console.log(res)
         showToast("success", "Success", "Attendance Marked")
@@ -286,7 +286,8 @@ const TableContainer = ({
           </tbody>
         </Table>
 
-        <DatePicker maxDate={new Date()} format={"y-MM-dd"} value={selecteddate} onChange={(value) => handleselecteddatechange(value)} />
+        {/* <DatePicker maxDate={new Date()} format={"y-MM-dd"} value={selecteddate} onChange={(value) => handleselecteddatechange(value)} /> */}
+        <input type="date" name="" id="" maxDate={new Date()}  value={selecteddate}  onChange={(value) => handleselecteddatechange(value)} />
       </div>
 
       <Row className="justify-content-md-end justify-content-center align-items-center">
